@@ -697,6 +697,127 @@ g[e].setAttribute("id",l);b[l]={greatest_marker:0,_progress_markers:{},current:0
     return true;
   }
 
+  // ── 8. Web Development section ────────────────────────────────────
+  var webChips = ['FastAPI', 'Django', 'Flask', 'Superior debugger', 'Databases', 'JavaScript/TypeScript', 'Powerful endpoints window', 'VCS integration'];
+  var webContent = {
+    'FastAPI': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/fastapi.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/fastapi.mp4',
+      title: 'FastAPI support',
+      body:  'Build high-performance APIs with FastAPI and get full IDE support: auto-completion for path operations, Pydantic model validation hints, endpoint navigation, and integrated test runners.'
+    },
+    'Django': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/django.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/django.mp4',
+      title: 'Django support',
+      body:  'PyCharm understands Django deeply — templates, models, views, and URLs. Get code completion in templates, navigate between views and URLs, and run manage.py commands from the IDE.'
+    },
+    'Flask': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/flask.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/flask.mp4',
+      title: 'Flask support',
+      body:  'Develop Flask applications with route auto-completion, Jinja2 template support, and integrated run configurations. Debug requests and responses without leaving the IDE.'
+    },
+    'Superior debugger': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/debugger.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/debugger.mp4',
+      title: 'Superior debugger',
+      body:  'Set breakpoints, inspect variables, evaluate expressions, and step through code — including templates, async code, and remote servers. The most powerful Python debugger, built in.'
+    },
+    'Databases': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/databases.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/databases.mp4',
+      title: 'Rich databases support',
+      body:  'Connect to PostgreSQL, MySQL, SQLite, MongoDB and more. Write queries with full completion, browse schemas, visualize data, and run migrations — all from PyCharm.'
+    },
+    'JavaScript/TypeScript': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/js-ts.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/js-ts.mp4',
+      title: 'JavaScript and TypeScript',
+      body:  'Work with the full web stack in one IDE. PyCharm provides first-class support for JavaScript and TypeScript — including Vue, React, and Node.js — alongside your Python backend.'
+    },
+    'Powerful endpoints window': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/endpoints.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/endpoints.mp4',
+      title: 'Powerful endpoints window',
+      body:  'See all HTTP endpoints across your project in one place. Navigate directly to route handlers, test them with the built-in HTTP client, and keep your API surface under control.'
+    },
+    'VCS integration': {
+      video: 'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/vcs.webm',
+      mp4:   'https://resources.jetbrains.com/storage/products/pycharm/video/web-development/vcs.mp4',
+      title: 'Seamless VCS integration',
+      body:  'Commit, push, merge, and resolve conflicts without leaving PyCharm. The built-in Git and GitHub integration keeps your workflow fast and your history clean.'
+    }
+  };
+
+  function buildWebSection() {
+    if (document.querySelector('.pycharm-web-section')) return true;
+
+    var dsSection = document.querySelector('.pycharm-ds-section');
+    if (!dsSection) return false;
+
+    var activeChip = 'FastAPI';
+
+    function renderWebContent(chip) {
+      var d = webContent[chip] || webContent['FastAPI'];
+      return '<div style="display:flex;gap:48px;align-items:center;">' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div style="border-radius:12px;overflow:hidden;background:#1e1e1e;box-shadow:0 24px 60px rgba(0,0,0,0.5);">' +
+            '<video controls controlslist="nodownload" loop preload="metadata" playsinline style="width:100%;display:block;">' +
+              '<track kind="captions">' +
+              '<source src="' + d.video + '#t=0.1" type="video/webm">' +
+              '<source src="' + d.mp4 + '#t=0.1" type="video/mp4">' +
+            '</video>' +
+          '</div>' +
+        '</div>' +
+        '<div style="flex:1;min-width:0;">' +
+          '<h3 style="font-size:clamp(22px,2.5vw,36px);font-weight:700;color:#fff;margin:0 0 24px;">' + d.title + '</h3>' +
+          '<p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;margin:0;">' + d.body + '</p>' +
+        '</div>' +
+      '</div>';
+    }
+
+    function buildWebChips() {
+      return webChips.map(function(chip) {
+        var sel = chip === activeChip;
+        return '<button data-chip="' + chip + '" style="' +
+          'padding:6px 14px;border-radius:20px;border:1px solid ' + (sel ? '#1fbba1' : 'rgba(255,255,255,0.2)') + ';' +
+          'background:' + (sel ? 'rgba(31,187,161,0.15)' : 'transparent') + ';' +
+          'color:' + (sel ? '#1fbba1' : 'rgba(255,255,255,0.7)') + ';' +
+          'font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;white-space:nowrap;">' +
+          chip + '</button>';
+      }).join('');
+    }
+
+    var section = document.createElement('section');
+    section.className = 'pycharm-web-section wt-section wt-section_bg_dark wt-section_theme_dark section-transparent';
+    section.style.cssText = 'padding:80px 0 96px;';
+
+    section.innerHTML =
+      '<div class="wt-container _wt-container_1e264oh_1">' +
+        '<h2 style="font-size:clamp(28px,3vw,48px);font-weight:700;color:#fff;margin:0 0 8px;">' +
+          'Get all the tools you need for <span style="color:#1fbba1;">web development</span>' +
+        '</h2>' +
+        '<div class="pycharm-web-chips" style="display:flex;flex-wrap:wrap;gap:10px;margin:40px 0 48px;">' +
+          buildWebChips() +
+        '</div>' +
+        '<div class="pycharm-web-content">' + renderWebContent(activeChip) + '</div>' +
+      '</div>';
+
+    dsSection.parentNode.insertBefore(section, dsSection.nextSibling);
+
+    section.querySelector('.pycharm-web-chips').addEventListener('click', function handler(e) {
+      var btn = e.target.closest('button[data-chip]');
+      if (!btn) return;
+      activeChip = btn.dataset.chip;
+      section.querySelector('.pycharm-web-chips').innerHTML = buildWebChips();
+      section.querySelector('.pycharm-web-content').innerHTML = renderWebContent(activeChip);
+      section.querySelector('.pycharm-web-chips').addEventListener('click', handler);
+    });
+
+    return true;
+  }
+
   // ── Run all formatters on an interval until DOM is ready ──────────
   var attempts = 0;
   var timer = setInterval(function() {
@@ -704,6 +825,7 @@ g[e].setAttribute("id",l);b[l]={greatest_marker:0,_progress_markers:{},current:0
     formatHero();
     tryInsert();
     buildDsSection();
+    buildWebSection();
     if (attempts > 50) clearInterval(timer);
   }, 200);
 })();
